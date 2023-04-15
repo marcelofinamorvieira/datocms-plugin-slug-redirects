@@ -1,3 +1,5 @@
-# [Your plugin name]
+# [Slug Redirects]
 
-[Describe what your plugin does, and how users you can configure it! Screenshots are always welcome!]
+A plugin that registers all slug changes conviniently to manage redirects.
+
+Add it to the slug field you want as a field addon. From then on, all of the changes made to that slug field will be logged and saved with a "source" and "destination" rule on the "Slug Redirects" model.

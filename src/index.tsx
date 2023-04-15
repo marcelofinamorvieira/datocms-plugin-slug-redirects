@@ -20,7 +20,7 @@ connect({
       });
 
       const redirectsModel = await client.itemTypes.create({
-        name: "🪧 Slug Redirects",
+        name: "🐌 Slug Redirects",
         api_key: "slug_redirect",
         singleton: true,
       });

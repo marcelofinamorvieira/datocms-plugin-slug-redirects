@@ -1,8 +1,8 @@
 {
   "name": "datocms-plugin-slug-redirects",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
-  "homepage": "https://github.com/marcelofinamorvieira/",
+  "homepage": "https://github.com/marcelofinamorvieira/datocms-plugin-slug-redirects",
   "description": "A plugin that registers all slug changes conviniently to manage redirects.",
   "keywords": [
     "datocms-plugin",
@@ -12,6 +12,7 @@
   "datoCmsPlugin": {
     "title": "Slug Redirects",
     "coverImage": "docs/cover.png",
+    "previewImage": "docs/preview.mp4",
     "entryPoint": "build/index.html",
     "permissions": [
       "currentUserAccessToken"
