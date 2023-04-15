@@ -1,4 +1,4 @@
-# [Slug Redirects]
+# Slug Redirects
 
 A plugin that registers all slug changes conviniently to manage redirects.
 

@@ -8,8 +8,9 @@ export default async function updateSlugRedirects(
   client: Client
 ) {
   const newObject = {
-    source: urlPrefix + oldSlug,
-    destination: urlPrefix + newSlug,
+    source: oldSlug,
+    destination: newSlug,
+    urlPrefix,
     recordID: recordID,
   };
 
