@@ -1,8 +1,24 @@
 {
-  "name": "slug-redirects",
+  "name": "datocms-plugin-slug-redirects",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://github.com/marcelofinamorvieira/",
+  "description": "A plugin that registers all slug changes conviniently to manage redirects.",
+  "keywords": [
+    "datocms-plugin",
+    "slug",
+    "redirect"
+  ],
+  "datoCmsPlugin": {
+    "title": "Slug Redirects",
+    "coverImage": "docs/cover.png",
+    "entryPoint": "build/index.html",
+    "permissions": [
+      "currentUserAccessToken"
+    ]
+  },
   "dependencies": {
+    "@datocms/cma-client-browser": "^1.3.1",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
@@ -39,11 +55,5 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
-  },
-  "datoCmsPlugin": {
-    "title": "",
-    "previewImage": "",
-    "coverImage": "",
-    "entryPoint": "build/index.html"
   }
 }

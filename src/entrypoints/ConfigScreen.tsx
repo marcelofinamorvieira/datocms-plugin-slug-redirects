@@ -1,6 +1,5 @@
-import { RenderConfigScreenCtx } from 'datocms-plugin-sdk';
-import { Canvas, ContextInspector } from 'datocms-react-ui';
-import s from './styles.module.css';
+import { RenderConfigScreenCtx } from "datocms-plugin-sdk";
+import { Canvas } from "datocms-react-ui";
 
 type Props = {
   ctx: RenderConfigScreenCtx;
@@ -9,10 +8,9 @@ type Props = {
 export default function ConfigScreen({ ctx }: Props) {
   return (
     <Canvas ctx={ctx}>
-      <p>Welcome to your plugin! This is your config screen!</p>
-      <div className={s.inspector}>
-        <ContextInspector />
-      </div>
+      Add it to the slug field you want as a field addon. From then
+      on, all of the changes made to that slug field will be logged and saved
+      with a "source" and "destination" rule on the "Slug Redirects" model.
     </Canvas>
   );
 }
