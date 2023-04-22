@@ -56,6 +56,10 @@ connect({
     }
   },
   async onBeforeItemUpsert(createOrUpdateItemPayload, ctx) {
+    if (ctx.plugin.attributes.parameters.onPublish) {
+      return true;
+    }
+
     let fieldUsingThisPlugin: Array<string> = [];
     let urlPrefix = "";
 
@@ -95,6 +99,64 @@ connect({
 
     const oldSlug = recordBeforeUpdate[updatedFieldKey];
     const newSlug = (createOrUpdateItemPayload.data.attributes as object)[
+      updatedFieldKey
+    ];
+
+    updateSlugRedirects(
+      urlPrefix,
+      oldSlug as string,
+      newSlug,
+      recordBeforeUpdate.id,
+      client
+    );
+
+    return true;
+  },
+
+  async onBeforeItemsPublish(publishItemPayload, ctx) {
+    if (!ctx.plugin.attributes.parameters.onPublish) {
+      return true;
+    }
+
+    let fieldUsingThisPlugin: Array<string> = [];
+    let urlPrefix = "";
+
+    (await ctx.loadFieldsUsingPlugin()).map((field) => {
+      fieldUsingThisPlugin.push(field.attributes.api_key);
+      urlPrefix = field.attributes.appearance.parameters.url_prefix as string;
+    });
+
+    if (!fieldUsingThisPlugin) {
+      return true;
+    }
+
+    const updatedFields = Object.keys(
+      publishItemPayload[0].attributes as object //im not gonna type this :)
+    );
+
+    let updatedFieldKey;
+
+    (fieldUsingThisPlugin as Array<string>).forEach((field) => {
+      if (updatedFields.includes(field)) {
+        updatedFieldKey = field;
+        return;
+      }
+    });
+
+    if (!updatedFieldKey) {
+      return true;
+    }
+
+    const client = buildClient({
+      apiToken: ctx.currentUserAccessToken as string,
+    });
+
+    const recordBeforeUpdate = await client.items.find(
+      (publishItemPayload[0] as any).id as string
+    );
+
+    const oldSlug = recordBeforeUpdate[updatedFieldKey];
+    const newSlug = (publishItemPayload[0].attributes as object)[
       updatedFieldKey
     ];
 
