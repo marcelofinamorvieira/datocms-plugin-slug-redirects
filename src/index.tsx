@@ -162,8 +162,8 @@ connect({
 
     updateSlugRedirects(
       urlPrefix,
+      newSlug as string,
       oldSlug as string,
-      newSlug,
       recordBeforeUpdate.id,
       client
     );
