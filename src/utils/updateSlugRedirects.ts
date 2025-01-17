@@ -7,6 +7,10 @@ export default async function updateSlugRedirects(
   recordID: string,
   client: Client
 ) {
+  if (oldSlug === newSlug) {
+    return;
+  }
+
   const newObject = {
     source: oldSlug,
     destination: newSlug,
