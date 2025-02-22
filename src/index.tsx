@@ -2,12 +2,12 @@ import {
   IntentCtx,
   RenderFieldExtensionCtx,
   connect,
-} from "datocms-plugin-sdk";
-import { render } from "./utils/render";
-import ConfigScreen from "./entrypoints/ConfigScreen";
-import { buildClient } from "@datocms/cma-client-browser";
-import SlugExtension from "./entrypoints/SlugExtension";
-import updateSlugRedirects from "./utils/updateSlugRedirects";
+} from 'datocms-plugin-sdk';
+import { render } from './utils/render';
+import ConfigScreen from './entrypoints/ConfigScreen';
+import { buildClient } from '@datocms/cma-client-browser';
+import SlugExtension from './entrypoints/SlugExtension';
+import updateSlugRedirects from './utils/updateSlugRedirects';
 
 connect({
   async onBoot(ctx) {
@@ -17,22 +17,23 @@ connect({
     ) {
       const client = buildClient({
         apiToken: ctx.currentUserAccessToken as string,
+        environment: ctx.environment,
       });
 
       const redirectsModel = await client.itemTypes.create({
-        name: "🐌 Slug Redirects",
-        api_key: "slug_redirect",
+        name: '🐌 Slug Redirects',
+        api_key: 'slug_redirect',
         singleton: true,
       });
 
-      await client.fields.create("slug_redirect", {
-        label: "redirects",
-        field_type: "json",
-        api_key: "redirects",
+      await client.fields.create('slug_redirect', {
+        label: 'redirects',
+        field_type: 'json',
+        api_key: 'redirects',
       });
 
       await client.items.create({
-        item_type: { type: "item_type", id: redirectsModel.id },
+        item_type: { type: 'item_type', id: redirectsModel.id },
         redirects: JSON.stringify([]),
       });
 
@@ -42,16 +43,16 @@ connect({
   manualFieldExtensions(ctx: IntentCtx) {
     return [
       {
-        id: "slugRedirects",
-        name: "Slug Redirects",
-        type: "addon",
-        fieldTypes: ["slug"],
+        id: 'slugRedirects',
+        name: 'Slug Redirects',
+        type: 'addon',
+        fieldTypes: ['slug'],
       },
     ];
   },
   renderFieldExtension(fieldExtensionId: string, ctx: RenderFieldExtensionCtx) {
     switch (fieldExtensionId) {
-      case "slugRedirects":
+      case 'slugRedirects':
         return render(<SlugExtension ctx={ctx} />);
     }
   },
@@ -61,7 +62,7 @@ connect({
     }
 
     let fieldUsingThisPlugin: Array<string> = [];
-    let urlPrefix = "";
+    let urlPrefix = '';
 
     (await ctx.loadFieldsUsingPlugin()).map((field) => {
       fieldUsingThisPlugin.push(field.attributes.api_key);
@@ -73,7 +74,7 @@ connect({
     }
 
     const updatedFields = Object.keys(
-      createOrUpdateItemPayload.data.attributes as object //im not gonna type this :)
+      createOrUpdateItemPayload.data.attributes as object
     );
 
     let updatedFieldKey;
@@ -91,6 +92,7 @@ connect({
 
     const client = buildClient({
       apiToken: ctx.currentUserAccessToken as string,
+      environment: ctx.environment,
     });
 
     const recordBeforeUpdate = await client.items.find(
@@ -119,7 +121,7 @@ connect({
     }
 
     let fieldUsingThisPlugin: Array<string> = [];
-    let urlPrefix = "";
+    let urlPrefix = '';
 
     (await ctx.loadFieldsUsingPlugin()).map((field) => {
       fieldUsingThisPlugin.push(field.attributes.api_key);
@@ -131,7 +133,7 @@ connect({
     }
 
     const updatedFields = Object.keys(
-      publishItemPayload[0].attributes as object //im not gonna type this :)
+      publishItemPayload[0].attributes as object
     );
 
     let updatedFieldKey;
@@ -149,6 +151,7 @@ connect({
 
     const client = buildClient({
       apiToken: ctx.currentUserAccessToken as string,
+      environment: ctx.environment,
     });
 
     const recordBeforeUpdate = await client.items.find(
